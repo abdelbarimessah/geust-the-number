@@ -1,0 +1,48 @@
+// Random Views Start
+let randomPlusMinus = randomNumber(0, 20),
+  moduloNumber = randomNumber(40, 200),
+  slowDownFps = 0;
+const counter = document.querySelector(".stat.view-count-small"),
+  counterMobile = document.querySelector(".stat.view-count-smalls");
+if (counter && counterMobile) {
+  let counterParentStyles = window.getComputedStyle(
+      counter.parentElement.parentElement.parentElement
+    ),
+    firstValueCounterElem = randomNumber(100, 900),
+    jsCounter = randomNumber(
+      firstValueCounterElem - 100,
+      firstValueCounterElem
+    ),
+    animationCounterId = null,
+    animationCounterIdRelatedVideo = null;
+}
+
+function randomNumber(n, e) {
+  return Math.floor(Math.random() * (e - n) + n);
+}
+function counterAnimation() {
+  if (counter && counterMobile) {
+    jsCounter >= firstValueCounterElem
+      ? (jsCounter -= randomNumber(50, 100))
+      : slowDownFps % moduloNumber == 0 &&
+        ((moduloNumber = randomNumber(40, 200)),
+        randomPlusMinus < 10 ? jsCounter-- : jsCounter++,
+        "none" !== counterParentStyles.display
+          ? (counter.textContent = jsCounter)
+          : (counterMobile.textContent = jsCounter),
+        (randomPlusMinus = randomNumber(0, 20))),
+      slowDownFps++,
+      (animationCounterId = requestAnimationFrame(counterAnimation));
+  }
+}
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+counterAnimation(),
+  (window.onclick = function (n) {
+    if (!n.target.matches(".btn-share")) {
+      var e = document.getElementById("myDropdown");
+      e.classList.contains("show") && e.classList.remove("show");
+    }
+  });
+// Random Views End
